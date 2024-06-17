@@ -10,9 +10,9 @@ type GenRequest struct {
 type VideoTask struct {
 	ID                  string      `json:"id"`
 	Prompt              string      `json:"prompt"`
-	State               string      `json:"state"` //"processing", "completed"
+	State               string      `json:"state"` // "pending", "processing", "completed"
 	CreatedAt           string      `json:"created_at"`
-	Video               Video       `json:"video"`
+	Video               *Video      `json:"video"`
 	Liked               interface{} `json:"liked"`
 	EstimateWaitSeconds interface{} `json:"estimate_wait_seconds"`
 }
@@ -22,4 +22,14 @@ type Video struct {
 	Width     int         `json:"width"`
 	Height    int         `json:"height"`
 	Thumbnail interface{} `json:"thumbnail"`
+}
+
+type UploadReq struct {
+	Url string `json:"url"` // support public url & base64
+}
+
+type FileUploadResult struct {
+	Id           string `json:"id"`
+	PresignedUrl string `json:"presigned_url"`
+	PublicUrl    string `json:"public_url"`
 }

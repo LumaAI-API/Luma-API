@@ -2,7 +2,8 @@ FROM golang AS builder
 
 ENV GO111MODULE=on \
     GOOS=linux \
-    GOPROXY=https://goproxy.cn,direct
+    GOPROXY=https://goproxy.cn,direct \
+    CGO_ENABLED=0
 
 WORKDIR /build
 ADD go.mod go.sum ./
@@ -14,8 +15,7 @@ FROM alpine:latest
 
 RUN apk update \
     && apk upgrade \
-    && apk add --no-cache ca-certificates tzdata gcc \
-    && update-ca-certificates 2>/dev/null || true
+    && apk add --no-cache ca-certificates tzdata gcc
 
 COPY --from=builder /build/lumaApi /
 

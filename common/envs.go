@@ -18,3 +18,11 @@ var Proxy = GetOrDefaultString("PROXY", "")
 
 var BaseUrl = GetOrDefaultString("BASE_URL", "https://internal-api.virginia.labs.lumalabs.ai")
 var COOKIE = GetOrDefaultString("COOKIE", "")
+var AccessToken = GetOrDefaultString("ACCESS_TOKEN", "")
+var SecretToken = GetOrDefaultString("SECRET_TOKEN", "")
+
+var ChatTemplateDir = GetOrDefaultString("CHAT_TEMPLATE_DIR", "./template")
+var ChatOpenaiModel = GetOrDefaultString("CHAT_OPENAI_MODEL", "gpt-4o")
+var ChatOpenaiApiBASE = GetOrDefaultString("CHAT_OPENAI_BASE", "https://api.openai.com")
+var ChatOpenaiApiKey = GetOrDefaultString("CHAT_OPENAI_KEY", "")
+var ChatTimeOut = GetOrDefault("CHAT_TIME_OUT", 600) // 任务超时时间

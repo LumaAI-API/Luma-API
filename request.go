@@ -44,7 +44,17 @@ func InitTlsHTTPClient() {
 	}
 }
 
-func DoRequest(method, url string, body io.Reader, headers map[string]string) (*http.Response, error) {
+func DoRequest(method, url string, body io.Reader, otherHeaders map[string]string) (*http.Response, error) {
+	headers := map[string]string{
+		"Cookie": common.GetLumaAuth(),
+	}
+	for k, v := range CommonHeaders {
+		headers[k] = v
+	}
+	for k, v := range otherHeaders {
+		headers[k] = v
+	}
+
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err

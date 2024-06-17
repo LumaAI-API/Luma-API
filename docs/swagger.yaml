@@ -1,4 +1,13 @@
 definitions:
+  main.FileUploadResult:
+    properties:
+      id:
+        type: string
+      presigned_url:
+        type: string
+      public_url:
+        type: string
+    type: object
   main.GenRequest:
     properties:
       aspect_ratio:
@@ -12,6 +21,12 @@ definitions:
         type: string
       user_prompt:
         description: require
+        type: string
+    type: object
+  main.UploadReq:
+    properties:
+      url:
+        description: support public url & base64
         type: string
     type: object
   main.Video:
@@ -35,7 +50,7 @@ definitions:
       prompt:
         type: string
       state:
-        description: '"processing", "completed"'
+        description: '"pending", "processing", "completed"'
         type: string
       video:
         $ref: '#/definitions/main.Video'
@@ -64,6 +79,20 @@ paths:
               $ref: '#/definitions/main.VideoTask'
             type: array
       summary: Submit luma generate video task
+  /luma/generations/:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: video tasks
+          schema:
+            items:
+              $ref: '#/definitions/main.VideoTask'
+            type: array
+      summary: Submit luma generate video task
   /luma/generations/{id}:
     get:
       consumes:
@@ -78,4 +107,25 @@ paths:
               $ref: '#/definitions/main.VideoTask'
             type: array
       summary: Submit luma generate video task
+  /luma/generations/file_upload:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Upload image params
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.UploadReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: upload result
+          schema:
+            items:
+              $ref: '#/definitions/main.FileUploadResult'
+            type: array
+      summary: Upload image to luma
 swagger: "2.0"

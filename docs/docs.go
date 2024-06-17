@@ -49,6 +49,61 @@ const docTemplate = `{
                 }
             }
         },
+        "/luma/generations/": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Submit luma generate video task",
+                "responses": {
+                    "200": {
+                        "description": "video tasks",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.VideoTask"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/luma/generations/file_upload": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Upload image to luma",
+                "parameters": [
+                    {
+                        "description": "Upload image params",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.UploadReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "upload result",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.FileUploadResult"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/luma/generations/{id}": {
             "get": {
                 "consumes": [
@@ -73,6 +128,20 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "main.FileUploadResult": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "presigned_url": {
+                    "type": "string"
+                },
+                "public_url": {
+                    "type": "string"
+                }
+            }
+        },
         "main.GenRequest": {
             "type": "object",
             "properties": {
@@ -90,6 +159,15 @@ const docTemplate = `{
                 },
                 "user_prompt": {
                     "description": "require",
+                    "type": "string"
+                }
+            }
+        },
+        "main.UploadReq": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "description": "support public url \u0026 base64",
                     "type": "string"
                 }
             }
@@ -124,7 +202,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "state": {
-                    "description": "\"processing\", \"completed\"",
+                    "description": "\"pending\", \"processing\", \"completed\"",
                     "type": "string"
                 },
                 "video": {

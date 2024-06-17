@@ -1,0 +1,10 @@
+{"level":"info","_time":"2024-06-18T22:30:20.1632713+08:00","caller":"Luma-API/main.go:15","msg":"Luma-API started"}
+{"level":"info","_time":"2024-06-18T22:30:45.6636795+08:00","caller":"Luma-API/main.go:15","msg":"Luma-API started"}
+{"level":"info","_time":"2024-06-18T22:30:45.6641947+08:00","caller":"Luma-API/main.go:45","msg":"Start: 0.0.0.0:8000"}
+{"level":"info","_time":"2024-06-18T22:38:22.1361724+08:00","caller":"Luma-API/main.go:15","msg":"Luma-API started"}
+{"level":"info","_time":"2024-06-18T22:38:22.1366849+08:00","caller":"Luma-API/main.go:45","msg":"Start: 0.0.0.0:8000"}
+{"level":"info","_time":"2024-06-18T22:45:13.4361659+08:00","caller":"Luma-API/main.go:15","msg":"Luma-API started"}
+{"level":"info","_time":"2024-06-18T22:45:13.4438757+08:00","caller":"Luma-API/main.go:45","msg":"Start: 0.0.0.0:8000"}
+{"level":"info","_time":"2024-06-18T22:47:02.0242619+08:00","caller":"Luma-API/main.go:15","msg":"Luma-API started"}
+{"level":"info","_time":"2024-06-18T22:47:02.0252934+08:00","caller":"Luma-API/main.go:45","msg":"Start: 0.0.0.0:8000"}
+{"level":"info","_time":"2024-06-18T22:47:35.2143966+08:00","caller":"Luma-API/api.go:51","msg":"upload file success","uploadRes":{"id":"3f0916d4-4541-464a-9fed-aac890c08b54","presigned_url":"https://dc53a917a6f427706a8ca3ecc7d70ea4.r2.cloudflarestorage.com/ai-lumalabs-storage/app_data/photon/user_uploads/3893d0d9-218c-4baa-b6ba-363dcf7ab1ec/3f0916d4-4541-464a-9fed-aac890c08b54_image_file.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=60bf44f30d45b472f9dd032de33e15d1%2F20240618%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20240618T144705Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=b3e3c6c0b53323950c97d470fcc10fedff3327e2953f98c4fba807712ef4addf","public_url":"https://storage.cdn-luma.com/app_data/photon/user_uploads/3893d0d9-218c-4baa-b6ba-363dcf7ab1ec/3f0916d4-4541-464a-9fed-aac890c08b54_image_file.jpg"}}

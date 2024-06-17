@@ -4,6 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"luma-api/docs"
+	"luma-api/middleware"
 )
 
 func RegisterRouter(r *gin.Engine) {
@@ -12,12 +14,13 @@ func RegisterRouter(r *gin.Engine) {
 			"message": "pong",
 		})
 	})
-
+	docs.SwaggerInfo.BasePath = "/"
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	apiRouter := r.Group("/luma")
+	apiRouter := r.Group("/luma", middleware.SecretAuth())
 	{
 		apiRouter.POST("/generations/", Generations)
 		apiRouter.GET("/generations/*action", Fetch)
+		apiRouter.POST("/generations/file_upload", Upload)
 	}
 }
