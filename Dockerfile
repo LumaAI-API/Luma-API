@@ -21,4 +21,4 @@ COPY --from=builder /build/lumaApi /
 
 EXPOSE 8000
 
-RUN ./lumaApi
+ENTRYPOINT ["/lumaApi"]
