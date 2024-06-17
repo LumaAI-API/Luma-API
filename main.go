@@ -24,6 +24,8 @@ func main() {
 		})
 		common.Logger.Info("running in pprof")
 	}
+	common.InitTemplate()
+
 	// Initialize HTTP server
 	server := gin.New()
 	server.Use(middleware.RequestId())
