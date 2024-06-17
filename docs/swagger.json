@@ -1,0 +1,124 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/luma/generations": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Submit luma generate video task",
+                "parameters": [
+                    {
+                        "description": "submit generate video",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.GenRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "generate result",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.VideoTask"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/luma/generations/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Submit luma generate video task",
+                "responses": {
+                    "200": {
+                        "description": "video tasks",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.VideoTask"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.GenRequest": {
+            "type": "object",
+            "properties": {
+                "aspect_ratio": {
+                    "description": "require",
+                    "type": "string"
+                },
+                "expand_prompt": {
+                    "description": "require",
+                    "type": "boolean"
+                },
+                "image_url": {
+                    "description": "option, uploaded refer image url",
+                    "type": "string"
+                },
+                "user_prompt": {
+                    "description": "require",
+                    "type": "string"
+                }
+            }
+        },
+        "main.Video": {
+            "type": "object",
+            "properties": {
+                "height": {
+                    "type": "integer"
+                },
+                "thumbnail": {},
+                "url": {
+                    "type": "string"
+                },
+                "width": {
+                    "type": "integer"
+                }
+            }
+        },
+        "main.VideoTask": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "estimate_wait_seconds": {},
+                "id": {
+                    "type": "string"
+                },
+                "liked": {},
+                "prompt": {
+                    "type": "string"
+                },
+                "state": {
+                    "description": "\"processing\", \"completed\"",
+                    "type": "string"
+                },
+                "video": {
+                    "$ref": "#/definitions/main.Video"
+                }
+            }
+        }
+    }
+}

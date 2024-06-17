@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  sunoapi:
+    image: lumaapi/luma-api:latest
+    container_name: luma-api
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./logs:/logs
+    environment:
+      - COOKIE=
+

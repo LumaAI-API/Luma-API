@@ -1,0 +1,81 @@
+definitions:
+  main.GenRequest:
+    properties:
+      aspect_ratio:
+        description: require
+        type: string
+      expand_prompt:
+        description: require
+        type: boolean
+      image_url:
+        description: option, uploaded refer image url
+        type: string
+      user_prompt:
+        description: require
+        type: string
+    type: object
+  main.Video:
+    properties:
+      height:
+        type: integer
+      thumbnail: {}
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  main.VideoTask:
+    properties:
+      created_at:
+        type: string
+      estimate_wait_seconds: {}
+      id:
+        type: string
+      liked: {}
+      prompt:
+        type: string
+      state:
+        description: '"processing", "completed"'
+        type: string
+      video:
+        $ref: '#/definitions/main.Video'
+    type: object
+info:
+  contact: {}
+paths:
+  /luma/generations:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: submit generate video
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.GenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: generate result
+          schema:
+            items:
+              $ref: '#/definitions/main.VideoTask'
+            type: array
+      summary: Submit luma generate video task
+  /luma/generations/{id}:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: video tasks
+          schema:
+            items:
+              $ref: '#/definitions/main.VideoTask'
+            type: array
+      summary: Submit luma generate video task
+swagger: "2.0"
