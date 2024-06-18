@@ -12,7 +12,7 @@ type VideoTask struct {
 	Prompt              string      `json:"prompt"`
 	State               string      `json:"state"` //"processing", "completed"
 	CreatedAt           string      `json:"created_at"`
-	Video               Video       `json:"video"`
+	Video               *Video      `json:"video"`
 	Liked               interface{} `json:"liked"`
 	EstimateWaitSeconds interface{} `json:"estimate_wait_seconds"`
 }
