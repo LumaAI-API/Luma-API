@@ -21,7 +21,18 @@ func InitTemplate() {
 		Logger.Warnf("InitTemplate empty TemplateDir")
 		return
 	}
-	err := filepath.Walk(ChatTemplateDir, func(path string, info os.FileInfo, err error) error {
+
+	exist, err := PathExists(ChatTemplateDir)
+	if err != nil {
+		panic(err)
+	}
+
+	if !exist {
+		Logger.Warnf("InitTemplate empty TemplateDir")
+		return
+	}
+
+	err = filepath.Walk(ChatTemplateDir, func(path string, info os.FileInfo, err error) error {
 		if info.IsDir() {
 			return nil
 		}
