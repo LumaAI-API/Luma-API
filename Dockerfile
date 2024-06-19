@@ -18,7 +18,7 @@ RUN apk update \
     && apk add --no-cache ca-certificates tzdata gcc
 
 COPY --from=builder /build/lumaApi /
-COPY --from=builder /template /template/
+COPY --from=builder /build/template /template/
 
 EXPOSE 8000
 
