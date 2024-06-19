@@ -54,7 +54,9 @@ curl --location 'http://localhost:8000/luma/generations/' \
 ### Configuration
 Log in using Google Chrome https://lumalabs.ai/dream-machine/
 Get access_token
-   ![token.png](./docs/images/token.png)
+
+ ![token.png](./docs/images/token.png)
+
 
 ### Env Environment Variables
 | env         | description                                                                                                                                | default value                                  |
