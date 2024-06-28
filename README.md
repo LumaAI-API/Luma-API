@@ -19,6 +19,11 @@ Using Golang, convert the video capabilities of the LumaAI Dream Machine into an
 - [] Pre-detection of sensitive words.
 
 
+## Web UI
+https://github.com/Dooy/chatgpt-web-midjourney-proxy
+Online  
+https://api-chat.gptbest.vip
+
 ## API Docs
 
 http://localhost:8000/swagger/index.html
