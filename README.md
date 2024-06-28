@@ -20,7 +20,7 @@ Using Golang, convert the video capabilities of the LumaAI Dream Machine into an
 
 
 ## Web UI
-https://github.com/Dooy/chatgpt-web-midjourney-proxy
+https://github.com/Dooy/chatgpt-web-midjourney-proxy  
 Online  
 https://api-chat.gptbest.vip
 
