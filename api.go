@@ -20,6 +20,10 @@ const (
 	FileUploadEndpoint = "/api/photon/v1/generations/file_upload"
 )
 
+const (
+	OfficalImageRoot = "https://storage.cdn-luma.com/app_data/photon"
+)
+
 var CommonHeaders = map[string]string{
 	"Content-Type": "application/json",
 	"User-Agent":   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
@@ -43,7 +47,7 @@ func Generations(c *gin.Context) {
 		common.WrapperLumaError(c, err, http.StatusInternalServerError)
 		return
 	}
-	if genRequest.ImageUrl != "" && !strings.HasPrefix(genRequest.ImageUrl, "https://storage.cdn-luma.com/app_data/photon") {
+	if genRequest.ImageUrl != "" && !strings.HasPrefix(genRequest.ImageUrl, OfficalImageRoot) {
 		uploadRes, err := uploadFile(genRequest.ImageUrl)
 		if err != nil {
 			common.WrapperLumaError(c, err, http.StatusInternalServerError)
@@ -51,6 +55,15 @@ func Generations(c *gin.Context) {
 		}
 		common.Logger.Infow("upload file success", "uploadRes", uploadRes)
 		genRequest.ImageUrl = uploadRes.PublicUrl
+	}
+	if genRequest.ImageEndUrl != "" && !strings.HasPrefix(genRequest.ImageEndUrl, OfficalImageRoot) {
+		uploadRes, err := uploadFile(genRequest.ImageEndUrl)
+		if err != nil {
+			common.WrapperLumaError(c, err, http.StatusInternalServerError)
+			return
+		}
+		common.Logger.Infow("upload file success", "uploadRes", uploadRes)
+		genRequest.ImageEndUrl = uploadRes.PublicUrl
 	}
 
 	reqData, _ := json.Marshal(genRequest)

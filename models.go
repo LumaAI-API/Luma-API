@@ -1,10 +1,11 @@
 package main
 
 type GenRequest struct {
-	UserPrompt   string `json:"user_prompt"`         // require
-	AspectRatio  string `json:"aspect_ratio"`        // require
-	ExpandPrompt bool   `json:"expand_prompt"`       // require
-	ImageUrl     string `json:"image_url,omitempty"` //option, uploaded refer image url
+	UserPrompt   string `json:"user_prompt"`             // require
+	AspectRatio  string `json:"aspect_ratio"`            // require
+	ExpandPrompt bool   `json:"expand_prompt"`           // require
+	ImageUrl     string `json:"image_url,omitempty"`     //option, uploaded refer image url
+	ImageEndUrl  string `json:"image_end_url,omitempty"` //option, uploaded refer image url
 }
 
 type VideoTask struct {
