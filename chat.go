@@ -4,13 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/sashabaranov/go-openai"
 	"io"
 	"luma-api/common"
 	"luma-api/middleware"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/sashabaranov/go-openai"
 )
 
 const (

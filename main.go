@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"log"
 	"luma-api/common"
 	"luma-api/middleware"
 	"net/http"
 	"runtime/debug"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {

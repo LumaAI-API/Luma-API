@@ -1,11 +1,12 @@
 package main
 
 import (
+	"luma-api/docs"
+	"luma-api/middleware"
+
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"luma-api/docs"
-	"luma-api/middleware"
 )
 
 func RegisterRouter(r *gin.Engine) {

@@ -1,12 +1,13 @@
 package main
 
 import (
-	tls_client "github.com/bogdanfinn/tls-client"
-	"github.com/bogdanfinn/tls-client/profiles"
 	"io"
 	"luma-api/common"
 	"net/http"
 	"net/url"
+
+	tls_client "github.com/bogdanfinn/tls-client"
+	"github.com/bogdanfinn/tls-client/profiles"
 )
 
 var TlsHTTPClient tls_client.HttpClient
