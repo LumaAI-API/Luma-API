@@ -6,6 +6,10 @@ Using Golang, convert the video capabilities of the LumaAI Dream Machine into an
 ## Disclaimer
 - This project is released on GitHub under the MIT license, free and open-source for educational purposes.
 
+# Good news
+I provide the Luma AI API, no deployment is required, no subscription to Luma is required. Lower price, more convenient to use the Luma API.
+#### Website: https://api.bltcy.ai
+
 ## Supported Features
 - [x] Luma API supports video generation and allows uploading reference images.
 - [x] Users can upload reference images in advance or provide third-party image links or base64 encoded images when submitting video tasks.
