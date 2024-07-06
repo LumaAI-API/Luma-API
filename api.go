@@ -52,6 +52,16 @@ func Generations(c *gin.Context) {
 		genRequest.ImageUrl = uploadRes.PublicUrl
 	}
 
+	if genRequest.ImageEndUrl != "" && !strings.HasPrefix(genRequest.ImageEndUrl, "https://storage.cdn-luma.com/app_data/photon") {
+		uploadRes2, err := uploadFile(genRequest.ImageEndUrl)
+		if err != nil {
+			common.WrapperLumaError(c, err, http.StatusInternalServerError)
+			return
+		}
+		common.Logger.Infow("upload file success", "uploadRes2", uploadRes2)
+		genRequest.ImageEndUrl = uploadRes2.PublicUrl
+	}
+
 	reqData, _ := json.Marshal(genRequest)
 
 	resp, err := DoRequest("POST", fmt.Sprintf(common.BaseUrl+SubmitEndpoint), bytes.NewReader(reqData), nil)
@@ -103,6 +113,35 @@ func Fetch(c *gin.Context) {
 	action := c.Param("action")
 
 	url := fmt.Sprintf(common.BaseUrl+GetTaskEndpoint, action)
+	if c.Request.URL.RawQuery != "" {
+		url = fmt.Sprintf("%s?%s", url, c.Request.URL.RawQuery)
+	}
+	resp, err := DoRequest("GET", url, nil, nil)
+	if err != nil {
+		common.WrapperLumaError(c, err, http.StatusInternalServerError)
+		return
+	}
+	defer resp.Body.Close()
+
+	c.Writer.WriteHeader(resp.StatusCode)
+	for key, values := range resp.Header {
+		for _, value := range values {
+			c.Writer.Header().Add(key, value)
+		}
+	}
+	// 读取响应体
+	_, err = io.Copy(c.Writer, resp.Body)
+	if err != nil {
+		common.WrapperLumaError(c, err, http.StatusInternalServerError)
+		return
+	}
+	return
+}
+
+func Download(c *gin.Context) {
+	action := c.Param("action")
+
+	url := fmt.Sprintf(common.BaseUrl+GetTaskEndpoint+"/download_video_url", action)
 	if c.Request.URL.RawQuery != "" {
 		url = fmt.Sprintf("%s?%s", url, c.Request.URL.RawQuery)
 	}
