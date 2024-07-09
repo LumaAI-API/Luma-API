@@ -22,6 +22,7 @@ func RegisterRouter(r *gin.Engine) {
 	{
 		apiRouter.POST("/generations/", Generations)
 		apiRouter.GET("/generations/*action", Fetch)
+		apiRouter.GET("/download_video_url/*action", Download)
 		apiRouter.POST("/generations/file_upload", Upload)
 	}
 }
