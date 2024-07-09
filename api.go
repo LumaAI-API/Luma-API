@@ -66,16 +66,6 @@ func Generations(c *gin.Context) {
 		genRequest.ImageEndUrl = uploadRes.PublicUrl
 	}
 
-	if genRequest.ImageEndUrl != "" && !strings.HasPrefix(genRequest.ImageEndUrl, "https://storage.cdn-luma.com/app_data/photon") {
-		uploadRes2, err := uploadFile(genRequest.ImageEndUrl)
-		if err != nil {
-			common.WrapperLumaError(c, err, http.StatusInternalServerError)
-			return
-		}
-		common.Logger.Infow("upload file success", "uploadRes2", uploadRes2)
-		genRequest.ImageEndUrl = uploadRes2.PublicUrl
-	}
-
 	reqData, _ := json.Marshal(genRequest)
 
 	resp, err := DoRequest("POST", fmt.Sprintf(common.BaseUrl+SubmitEndpoint), bytes.NewReader(reqData), nil)
