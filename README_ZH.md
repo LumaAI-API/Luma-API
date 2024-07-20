@@ -17,9 +17,27 @@
 - [x] 提供符合 OpenAI 格式的接口标准化服务，支持流式、非流输出内容
 - [x] 支持自定义 OpenAI Chat 返回内容格式，基于 Go Template 语法
 - [x] 适配 chat-next-web 等前端项目
-- [] 自动保活（还未抓取到 refresh token 接口）
+- [x] 自动保活（最多7天）
 - [] 适配 New API 等中转项目
 - [] 敏感词预检测
+
+## 支持接口
+- 视频生成，支持上传首尾两张图片
+- [x] /generations  
+- 视频延长，每次延长5秒
+- [x] /generations/:task_id/extend 
+- 查询单视频任务
+- [x] /generations/:task_id 
+- 预上传图片
+- [x] /generations/file_upload 
+- 获取无水印下载地址
+- [x] /generations/:task_id/download_video_url 
+- 获取账号订阅信息（余额等）
+- [x] /subscription/usage 
+- 获取账号信息
+- [x] /users/me  
+
+
 
 ## 对应界面
 https://github.com/Dooy/chatgpt-web-midjourney-proxy  
@@ -64,15 +82,11 @@ curl --location 'http://localhost:8000/luma/generations/' \
 1. 从浏览器中获取 cookie
 ![cookie](./docs/images/cookie.jpg)
 
-2. 从浏览器中获取 access_token 
-![token.png](./docs/images/token.png)
-
 ### Env Environment Variables
 | 环境变量 | 说明                                                       | 默认值                        |
 | --- |----------------------------------------------------------|----------------------------|
-| COOKIE | 上图获取的 luma 账号的 cookie， cookie 和 access_token 有其一就行       | 空                          | 
-| ACCESS_TOKEN | 上图获取的 luma 账号的 access_token， cookie 和 access_token 有其一就行 | 空                          | 
-| BASE_URL | Luma 官方请求 API URL<br/>                                   | https://internal-api.virginia.labs.lumalabs.ai | 
+| COOKIE | 上图获取的 luma 账号的 cookie     | 空                          | 
+| BASE_URL | Luma 官方请求 API URL                                   | https://internal-api.virginia.labs.lumalabs.ai | 
 | PROXY | Http 代理                                                  | 空                          | 
 | PORT | 开放端口                                                     | 8000                       | 
 | SECRET_TOKEN | Luma API 接口安全 Header Bearer token，强烈希望配置                 |  空                        |
@@ -111,7 +125,7 @@ services:
     volumes:
       - ./logs:/logs
     environment:
-      - ACCESS_TOKEN=
+      - COOKIE=xxxx
 ```
 
 ### Local Deployment

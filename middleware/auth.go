@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"luma-api/common"
 	"net/http"
@@ -18,7 +17,12 @@ func SecretAuth() func(c *gin.Context) {
 		if accessToken == common.SecretToken {
 			c.Next()
 		} else {
-			common.WrapperLumaError(c, fmt.Errorf("unauthorized secret token"), http.StatusUnauthorized)
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"detail": map[string]any{
+					"reason": "unauthorized secret token",
+					"code":   1,
+				},
+			})
 			c.Abort()
 			return
 		}

@@ -57,10 +57,66 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Submit luma generate video task",
+                "summary": "Get luma generate video task",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "page offset",
+                        "name": "offset",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "page limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "video tasks",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.VideoTask"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/luma/generations/:task_id/extend": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Submit luma extend generate video task",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "extend task id",
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "submit generate video",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.GenRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "generate result",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -104,7 +160,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/luma/generations/{id}": {
+        "/luma/generations/{task_id}": {
             "get": {
                 "consumes": [
                     "application/json"
@@ -112,15 +168,87 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Submit luma generate video task",
+                "summary": "Get luma generate video task",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "fetch single task by id",
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "video tasks",
+                        "description": "video single task",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/main.VideoTask"
-                            }
+                            "$ref": "#/definitions/main.VideoTask"
+                        }
+                    }
+                }
+            }
+        },
+        "/luma/generations/{task_id}/download_video_url": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get video url without watermark",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "fetch by id",
+                        "name": "task_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "url",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/luma/subscription/usage": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get current user subscription usage",
+                "responses": {
+                    "200": {
+                        "description": "subscription info",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/luma/users/me": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get current user info",
+                "responses": {
+                    "200": {
+                        "description": "user info",
+                        "schema": {
+                            "type": "object"
                         }
                     }
                 }
@@ -146,19 +274,23 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "aspect_ratio": {
-                    "description": "require",
+                    "description": "option",
                     "type": "string"
                 },
                 "expand_prompt": {
-                    "description": "require",
+                    "description": "option",
                     "type": "boolean"
+                },
+                "image_end_url": {
+                    "description": "option, uploaded refer image url",
+                    "type": "string"
                 },
                 "image_url": {
                     "description": "option, uploaded refer image url",
                     "type": "string"
                 },
                 "user_prompt": {
-                    "description": "require",
+                    "description": "option",
                     "type": "string"
                 }
             }

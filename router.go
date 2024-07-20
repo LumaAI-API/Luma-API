@@ -19,8 +19,22 @@ func RegisterRouter(r *gin.Engine) {
 
 	apiRouter := r.Group("/luma", middleware.SecretAuth())
 	{
+		//old 废弃
 		apiRouter.POST("/generations/", Generations)
-		apiRouter.GET("/generations/*action", Fetch)
+
+		// current
+		//apiRouter.GET("/generations/*action", Fetch)
+
+		// submit
+		apiRouter.POST("/generations", Generations)
+		apiRouter.POST("/generations/:task_id/extend", ExtentGenerations)
 		apiRouter.POST("/generations/file_upload", Upload)
+
+		// get data
+		apiRouter.GET("/generations/:task_id", FetchByID)
+		apiRouter.GET("/generations/:task_id/download_video_url", GetDownloadUrl)
+
+		apiRouter.GET("/subscription/usage", Usage)
+		apiRouter.GET("/users/me", Me)
 	}
 }

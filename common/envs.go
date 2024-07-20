@@ -18,7 +18,8 @@ var Proxy = GetOrDefaultString("PROXY", "")
 
 var BaseUrl = GetOrDefaultString("BASE_URL", "https://internal-api.virginia.labs.lumalabs.ai")
 var COOKIE = GetOrDefaultString("COOKIE", "")
-var AccessToken = GetOrDefaultString("ACCESS_TOKEN", "")
+
+// var AccessToken = GetOrDefaultString("ACCESS_TOKEN", "")
 var SecretToken = GetOrDefaultString("SECRET_TOKEN", "")
 
 var ChatTemplateDir = GetOrDefaultString("CHAT_TEMPLATE_DIR", "./template")

@@ -26,6 +26,10 @@ func main() {
 	}
 	common.InitTemplate()
 
+	common.SafeGoroutine(func() {
+		StartAllKeepAlive()
+	})
+
 	// Initialize HTTP server
 	server := gin.New()
 	server.Use(middleware.RequestId())

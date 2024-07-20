@@ -18,10 +18,25 @@ I provide the Luma AI API, no deployment is required, no subscription to Luma is
 - [x] Provides standardized services compatible with OpenAI's interface format, supporting both streaming and non-streaming output.
 - [x] Supports customization of the OpenAI Chat response format based on Go Template syntax.
 - [x] Compatible with frontend projects like chat-next-web.
-- [] Automatic keep-alive (still lacking access to refresh token interface).
+- [x] Automatic keep-alive (max keep-alive 7 days).
 - [] Adapts to intermediary projects like New API.
 - [] Pre-detection of sensitive words.
 
+## Supported Endpoints
+Video generation, supports uploading two images (start and end).
+[x] /generations
+Video extension, extends by 5 seconds each time.
+[x] /generations/:task_id/extend
+Query single video task.
+[x] /generations/:task_id
+Pre-upload images.
+[x] /generations/file_upload
+Get download URL without watermark.
+[x] /generations/:task_id/download_video_url
+Get account subscription information (balance, etc.).
+[x] /subscription/usage
+Get account information.
+[x] /users/me
 
 ## Web UI
 https://github.com/Dooy/chatgpt-web-midjourney-proxy  
@@ -62,16 +77,14 @@ curl --location 'http://localhost:8000/luma/generations/' \
 
 ### Configuration
 Log in using Google Chrome https://lumalabs.ai/dream-machine/
-Get access_token
-
- ![token.png](./docs/images/token.png)
+Get cookie
+![cookie](./docs/images/cookie.jpg)
 
 
 ### Env Environment Variables
 | env         | description                                                                                                                                | default value                                  |
 |-------------|--------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------|
-| COOKIE      | Cookie obtained from the image above for the Luma account,having either the access_token or the cookie is sufficient.	                     | None                                           | 
-| ACCESS_TOKEN | The access_token and cookie obtained from the luma account in the image above; having either the access_token or the cookie is sufficient. | None                                           |
+| COOKIE      | Cookie obtained from the image above for the Luma account                     | None                                           | 
 | BASE_URL    | Request API URL for Luma                                                                                                                   | https://internal-api.virginia.labs.lumalabs.ai | 
 | PROXY       | HTTP proxy	                                                                                                                                | None                                           | 
 | PORT        | Port                                                                                                                                       | 8000                                           | 
@@ -112,7 +125,7 @@ services:
     volumes:
       - ./logs:/logs
     environment:
-      - ACCESS_TOKEN=
+      - COOKIE=xxxx
 ```
 
 ### Local Deployment

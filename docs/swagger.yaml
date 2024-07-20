@@ -11,16 +11,19 @@ definitions:
   main.GenRequest:
     properties:
       aspect_ratio:
-        description: require
+        description: option
         type: string
       expand_prompt:
-        description: require
+        description: option
         type: boolean
+      image_end_url:
+        description: option, uploaded refer image url
+        type: string
       image_url:
         description: option, uploaded refer image url
         type: string
       user_prompt:
-        description: require
+        description: option
         type: string
     type: object
   main.UploadReq:
@@ -83,6 +86,17 @@ paths:
     get:
       consumes:
       - application/json
+      parameters:
+      - description: page offset
+        in: query
+        name: offset
+        required: true
+        type: string
+      - description: page limit
+        in: query
+        name: limit
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -92,21 +106,69 @@ paths:
             items:
               $ref: '#/definitions/main.VideoTask'
             type: array
-      summary: Submit luma generate video task
-  /luma/generations/{id}:
+      summary: Get luma generate video task
+  /luma/generations/:task_id/extend:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: extend task id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      - description: submit generate video
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/main.GenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: generate result
+          schema:
+            items:
+              $ref: '#/definitions/main.VideoTask'
+            type: array
+      summary: Submit luma extend generate video task
+  /luma/generations/{task_id}:
     get:
       consumes:
       - application/json
+      parameters:
+      - description: fetch single task by id
+        in: path
+        name: task_id
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
-          description: video tasks
+          description: video single task
           schema:
-            items:
-              $ref: '#/definitions/main.VideoTask'
-            type: array
-      summary: Submit luma generate video task
+            $ref: '#/definitions/main.VideoTask'
+      summary: Get luma generate video task
+  /luma/generations/{task_id}/download_video_url:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: fetch by id
+        in: path
+        name: task_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: url
+          schema:
+            type: object
+      summary: Get video url without watermark
   /luma/generations/file_upload:
     post:
       consumes:
@@ -128,4 +190,28 @@ paths:
               $ref: '#/definitions/main.FileUploadResult'
             type: array
       summary: Upload image to luma
+  /luma/subscription/usage:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: subscription info
+          schema:
+            type: object
+      summary: Get current user subscription usage
+  /luma/users/me:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: user info
+          schema:
+            type: object
+      summary: Get current user info
 swagger: "2.0"
