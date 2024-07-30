@@ -5,14 +5,15 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/pkg/errors"
 	"io"
 	"luma-api/common"
 	"net/http"
 	"regexp"
 	"strings"
 	"sync"
+
+	"github.com/gin-gonic/gin"
+	"github.com/pkg/errors"
 )
 
 const (
@@ -112,7 +113,7 @@ func doGeneration(c *gin.Context) {
 		genRequest.ImageUrl = uploadRes.PublicUrl
 	}
 
-	if genRequest.ImageEndUrl != "" && !strings.HasPrefix(genRequest.ImageUrl, "https://storage.cdn-luma.com/app_data/photon") {
+	if genRequest.ImageEndUrl != "" && !strings.HasPrefix(genRequest.ImageEndUrl, "https://storage.cdn-luma.com/app_data/photon") {
 		uploadRes, relayErr := uploadFile(genRequest.ImageEndUrl)
 		if relayErr != nil {
 			ReturnLumaError(c, relayErr.ErrorResp, relayErr.StatusCode)
